@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "mivazo festival",
+      "date": "2025-06-15",
+      "lieu": "Stade Barea mahamasina",
+      "category": "musique"
+    },
+    {
+      "id": 2,
+      "name": "game fest",
+      "date": "2025-04-02",
+      "lieu": " Skate park Antanimena",
+      "category": "jeux"
+    },
+    {
+      "id": 3,
+      "name": "madagascar all star vs Barea",
+      "date": "2025-03-26",
+      "lieu": "Stade Barea mahamasina",
+      "category": "sport"
+    },
+    {
+      "id": 4,
+      "name": "maki vs australie ",
+      "date": "2025-09-11",
+      "lieu": "Stade Maki",
+      "category": "sport"
+    }
+  ]
+}
