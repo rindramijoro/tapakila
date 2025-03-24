@@ -1,21 +1,56 @@
-import {DataProvider, fetchUtils} from  "react-admin"
+import { fetchUtils, DataProvider } from "react-admin";
 
-const api_url = "http://localhost:3001";
+const apiUrl = "http://localhost:3001";
+const httpClient = fetchUtils.fetchJson;
 
-export const dataProvider: DataProvider = {
+const dataProvider: DataProvider = {
   getList: async (resource, params) => {
-    const page = params.pagination?.page || 1;
-    const perPage = params.pagination?.perPage || 10;
-    const field = params.sort?.field || "id";
-    const order = params.sort?.order || "ASC";
+    const url = `${apiUrl}/${resource}`;
+    const { json } = await httpClient(url);
+    return { data: json, total: json.length };
+  },
 
-    const response = await fetchUtils.fetchJson(
-        `${api_url}/${resource}?_page=${page}&_limit=${perPage}&_sort=${field}&_order=${order}`
-    );
-    return {
-        data: response.json,
-        total : parseInt(response.headers.get("x-total-count") || "", 10),
-    };
-  }
+  getOne: async (resource, params) => {
+    const url = `${apiUrl}/${resource}/${params.id}`;
+    const { json } = await httpClient(url);
+    return { data: json };
+  },
+
+  create: async (resource, params) => {
+    const url = `${apiUrl}/${resource}`;
+    const { json } = await httpClient(url, {
+      method: "POST",
+      body: JSON.stringify(params.data),
+    });
+    return { data: json };
+  },
+
+  update: async (resource, params) => {
+    const url = `${apiUrl}/${resource}/${params.id}`;
+    const { json } = await httpClient(url, {
+      method: "PUT",
+      body: JSON.stringify(params.data),
+    });
+    return { data: json };
+  },
+
+  delete: async (resource, params) => {
+    const url = `${apiUrl}/${resource}/${params.id}`;
+    await httpClient(url, { method: "DELETE" });
+    return { data: params.previousData };
+  },
+
+  getMany: async (resource, params) => {
+    const url = `${apiUrl}/${resource}?id=${params.ids.join(",")}`;
+    const { json } = await httpClient(url);
+    return { data: json };
+  },
+
+  getManyReference: async (resource, params) => {
+    const url = `${apiUrl}/${resource}?${params.target}=${params.id}`;
+    const { json } = await httpClient(url);
+    return { data: json, total: json.length };
+  },
 };
 
+export default dataProvider;
