@@ -1,4 +1,11 @@
-import {Admin, EditGuesser, ListGuesser, Resource, ShowGuesser} from "react-admin"
+import {
+  Admin,
+  EditGuesser,
+  ListGuesser,
+  Resource,
+  ShowGuesser,
+  CustomRoutes,
+} from "react-admin";
 import dataProvider from "./dataProvider";
 import {
   FaCalendar,
@@ -6,6 +13,8 @@ import {
   FaTicketAlt,
   FaClipboardList,
 } from "react-icons/fa";
+import  DashboardAdmin  from "./dashboardAdmin.tsx";
+import { Route } from "react-router-dom";
 
 export const App = () => (
   <Admin dataProvider={dataProvider}>
@@ -37,5 +46,8 @@ export const App = () => (
       show={ShowGuesser}
       icon={FaClipboardList}
     />
+    <CustomRoutes>
+      <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
+    </CustomRoutes>
   </Admin>
 );
