@@ -1,28 +1,51 @@
 import { fetchUtils, DataProvider } from "react-admin";
 
-const apiUrl = "http://localhost:3001";
+const apiUrl = "http://localhost:8080";
 const httpClient = fetchUtils.fetchJson;
 
 const dataProvider: DataProvider = {
   getList: async (resource, params) => {
     const url = `${apiUrl}/${resource}`;
     const { json } = await httpClient(url);
-    return { data: json, total: json.length };
+    return {
+      data: json,
+      total: json.length,
+    };
   },
 
   getOne: async (resource, params) => {
     const url = `${apiUrl}/${resource}/${params.id}`;
     const { json } = await httpClient(url);
-    return { data: json };
+    return {
+      data: json[0] || json,
+    };
   },
 
   create: async (resource, params) => {
     const url = `${apiUrl}/${resource}`;
-    const { json } = await httpClient(url, {
+    let options = {
       method: "POST",
       body: JSON.stringify(params.data),
-    });
-    return { data: json };
+    };
+
+    // Special handling for tickets which returns the created data
+    if (resource === "tickets") {
+      options = {
+        ...options,
+        method: "POST",
+        body: JSON.stringify(params.data),
+      };
+      const { json } = await httpClient(url, options);
+      return {
+        data: { ...params.data, id: json.id || params.data.id },
+      };
+    } else {
+      // For events and users which return a message string
+      await httpClient(url, options);
+      return {
+        data: { ...params.data, id: params.data.id },
+      };
+    }
   },
 
   update: async (resource, params) => {
@@ -31,25 +54,27 @@ const dataProvider: DataProvider = {
       method: "PUT",
       body: JSON.stringify(params.data),
     });
-    return { data: json };
+    return {
+      data: json,
+    };
   },
 
   delete: async (resource, params) => {
     const url = `${apiUrl}/${resource}/${params.id}`;
-    await httpClient(url, { method: "DELETE" });
-    return { data: params.previousData };
+    await httpClient(url, {
+      method: "DELETE",
+    });
+    return {
+      data: params.previousData,
+    };
   },
 
   getMany: async (resource, params) => {
-    const url = `${apiUrl}/${resource}?id=${params.ids.join(",")}`;
+    const url = `${apiUrl}/${resource}?ids=${params.ids.join(",")}`;
     const { json } = await httpClient(url);
-    return { data: json };
-  },
-
-  getManyReference: async (resource, params) => {
-    const url = `${apiUrl}/${resource}?${params.target}=${params.id}`;
-    const { json } = await httpClient(url);
-    return { data: json, total: json.length };
+    return {
+      data: json,
+    };
   },
 };
 
