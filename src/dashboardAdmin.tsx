@@ -4,7 +4,7 @@ import ReactApexChart from "react-apexcharts";
 
 const DashboardAdmin: React.FC = () => {
 
-  const chartOptions = {
+  const ticketChart = {
     series: [
       {
         name: "Standard",
@@ -57,11 +57,85 @@ const DashboardAdmin: React.FC = () => {
     tooltip: {
       y: {
         formatter: function (val: number) {
-          return val + " Tickets";
+          return val + " Tickets vendu";
         },
       },
     },
   };
+
+    const eventChart = {
+      series: [
+        { name: "Total",data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 12, 15, 55] },
+      ],
+      chart: {
+        type: "bar",
+        height: 500,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "55%",
+          borderRadius: 5,
+          borderRadiusApplication: "end",
+        },
+      },
+      dataLabels: { enabled: false },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ["transparent"],
+      },
+      xaxis: {
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      yaxis: {
+        title: { text: "Events" },
+      },
+      fill: { opacity: 1 },
+      tooltip: {
+        y: {
+          formatter: function (val: number) {
+            return val + " Events";
+          },
+        },
+      },
+    };
+
+     const revenuChart = {
+       series: [
+         {
+           name: "Revenus (Ar)",
+           data: [500.000, 750.000,250.000 , 900.000, 798.265, 950.320, 1000000, 600.000, 200000, 500.000,850.000,1500000],
+         },
+       ],
+       chart: {
+         height: 350,
+         type: "line",
+         zoom: { enabled: false },
+       },
+       stroke: { curve: "straight" },
+       title: { text: "Revenus pas mois", align: "left" },
+       grid: {
+         row: {
+           colors: ["#f3f3f3", "transparent"],
+           opacity: 0.5,
+         },
+       },
+       xaxis: { categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec" ] },
+     };
 
   return (
     <div>
@@ -78,11 +152,31 @@ const DashboardAdmin: React.FC = () => {
       </div>
 
       <div className="chart-container">
+        <h2>Tickets vendus par mois</h2>
         <ReactApexChart
-          options={chartOptions}
-          series={chartOptions.series}
+          options={ticketChart}
+          series={ticketChart.series}
           type="bar"
           height={500}
+        />
+      </div>
+
+      <div className="chart-container">
+        <h2>Evenements mensuel</h2>
+        <ReactApexChart
+          options={eventChart}
+          series={eventChart.series}
+          type="bar"
+          height={500}
+        />
+      </div>
+
+      <div className="chart-container">
+        <ReactApexChart
+          options={revenuChart}
+          series={revenuChart.series}
+          type="line"
+          height={350}
         />
       </div>
     </div>
