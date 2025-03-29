@@ -1,0 +1,33 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-inline: 200px;
+    margin-top: 70px;
+}
+
+.cards{
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 17vw;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.cards:hover{
+    background-color: lightgrey;
+    cursor: pointer;
+    color: white;
+}
+
+.chart-container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 60vw;
+  margin-top: 5vh;
+  margin-left: 17vw;
+}

@@ -15,9 +15,11 @@ import {
 } from "react-icons/fa";
 import  DashboardAdmin  from "./dashboardAdmin.tsx";
 import { Route } from "react-router-dom";
+import { MyLayout } from "./Layout";
+
 
 export const App = () => (
-  <Admin dataProvider={dataProvider}>
+  <Admin dataProvider={dataProvider} layout={MyLayout}>
     <Resource
       name="events"
       list={ListGuesser}
