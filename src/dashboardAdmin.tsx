@@ -1,9 +1,8 @@
 import React from "react";
-import "./styles.css"; 
+import "./styles.css";
 import ReactApexChart from "react-apexcharts";
 
 const DashboardAdmin: React.FC = () => {
-
   const ticketChart = {
     series: [
       {
@@ -20,6 +19,7 @@ const DashboardAdmin: React.FC = () => {
       type: "bar",
       height: 500,
     },
+    colors: ["#1ABC9C", "#3498DB", "#FFD700"],
     plotOptions: {
       bar: {
         horizontal: false,
@@ -63,79 +63,103 @@ const DashboardAdmin: React.FC = () => {
     },
   };
 
-    const eventChart = {
-      series: [
-        { name: "Total",data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 12, 15, 55] },
+  const eventChart = {
+    series: [
+      { name: "Total", data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 12, 15, 55] },
+    ],
+    chart: {
+      type: "bar",
+      height: 500,
+    },
+    colors: ["#FF4560"],
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "55%",
+        borderRadius: 5,
+        borderRadiusApplication: "end",
+      },
+    },
+    dataLabels: { enabled: false },
+    stroke: {
+      show: true,
+      width: 2,
+      colors: ["transparent"],
+    },
+    xaxis: {
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
       ],
-      chart: {
-        type: "bar",
-        height: 500,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-          borderRadius: 5,
-          borderRadiusApplication: "end",
+    },
+    yaxis: {
+      title: { text: "Events" },
+    },
+    fill: { opacity: 1 },
+    tooltip: {
+      y: {
+        formatter: function (val: number) {
+          return val + " Events";
         },
       },
-      dataLabels: { enabled: false },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"],
-      },
-      xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
-      },
-      yaxis: {
-        title: { text: "Events" },
-      },
-      fill: { opacity: 1 },
-      tooltip: {
-        y: {
-          formatter: function (val: number) {
-            return val + " Events";
-          },
-        },
-      },
-    };
+    },
+  };
 
-     const revenuChart = {
-       series: [
-         {
-           name: "Revenus (Ar)",
-           data: [500.000, 750.000,250.000 , 900.000, 798.265, 950.320, 1000000, 600.000, 200000, 500.000,850.000,1500000],
-         },
-       ],
-       chart: {
-         height: 350,
-         type: "line",
-         zoom: { enabled: false },
-       },
-       stroke: { curve: "straight" },
-       title: { text: "Revenus pas mois", align: "left" },
-       grid: {
-         row: {
-           colors: ["#f3f3f3", "transparent"],
-           opacity: 0.5,
-         },
-       },
-       xaxis: { categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec" ] },
-     };
+  const revenuData = [
+    500.0, 750.0, 250.0, 900.0, 798.265, 950.32, 1000000, 600.0, 200000, 500.0,
+    850.0, 1500000,
+  ];
+
+  const totalIncome = revenuData.reduce((acc, value) => acc + value, 0);
+
+  const revenuChart = {
+    series: [
+      {
+        name: "Revenus (Ar)",
+        data: revenuData,
+      },
+    ],
+    chart: {
+      height: 350,
+      type: "line",
+      zoom: { enabled: false },
+    },
+    colors: ["#00E396"],
+    stroke: { curve: "straight" },
+    title: { text: "Revenus par mois", align: "left" },
+    grid: {
+      row: {
+        colors: ["#f3f3f3", "transparent"],
+        opacity: 0.5,
+      },
+    },
+    xaxis: {
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+    },
+  };
 
   return (
     <div>
@@ -178,6 +202,9 @@ const DashboardAdmin: React.FC = () => {
           type="line"
           height={350}
         />
+        <div>
+          <h2>Total income: {totalIncome.toLocaleString("fr-FR")} Ar </h2>
+        </div>
       </div>
     </div>
   );

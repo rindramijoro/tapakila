@@ -14,6 +14,7 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 import  DashboardAdmin  from "./dashboardAdmin.tsx";
+import UserProfile from "./userProfile";
 import { Route } from "react-router-dom";
 import { MyLayout } from "./Layout";
 
@@ -50,6 +51,9 @@ export const App = () => (
     />
     <CustomRoutes>
       <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
+    </CustomRoutes>
+    <CustomRoutes>
+      <Route path="/userProfile" element = {<UserProfile/>}/>
     </CustomRoutes>
   </Admin>
 );

@@ -1,21 +1,30 @@
 import { fetchUtils, DataProvider } from "react-admin";
 
-const apiUrl = "http://localhost:8080";
+const apiUrl = "http://localhost:8081";
 const httpClient = fetchUtils.fetchJson;
 
 const dataProvider: DataProvider = {
   getList: async (resource, params) => {
+    const { page = 1, perPage = 10 } = params.pagination || {};
     const url = `${apiUrl}/${resource}`;
+
     const { json } = await httpClient(url);
+
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    const paginatedData = json.slice(start, end);
+
     return {
-      data: json,
+      data: paginatedData,
       total: json.length,
     };
   },
 
+
   getOne: async (resource, params) => {
     const url = `${apiUrl}/${resource}/${params.id}`;
     const { json } = await httpClient(url);
+    console.log("API Response:", json);
     return {
       data: json[0] || json,
     };
@@ -28,30 +37,24 @@ const dataProvider: DataProvider = {
       body: JSON.stringify(params.data),
     };
 
-    // Special handling for tickets which returns the created data
     if (resource === "tickets") {
-      options = {
-        ...options,
-        method: "POST",
-        body: JSON.stringify(params.data),
-      };
       const { json } = await httpClient(url, options);
       return {
-        data: { ...params.data, id: json.id || params.data.id },
+        data: { ...params.data, id: json.id || params.data.id } as ResultRecordType,
       };
     } else {
-      // For events and users which return a message string
       await httpClient(url, options);
       return {
-        data: { ...params.data, id: params.data.id },
+        data: { ...params.data, id: params.data.id } as ResultRecordType,
       };
     }
   },
 
+
   update: async (resource, params) => {
     const url = `${apiUrl}/${resource}/${params.id}`;
     const { json } = await httpClient(url, {
-      method: "PUT",
+      method: "PATCH",
       body: JSON.stringify(params.data),
     });
     return {
