@@ -1,8 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import ReactApexChart from "react-apexcharts";
+import axios from "axios";
 
 const DashboardAdmin: React.FC = () => {
+  const [userCount, setUserCount] = useState(0);
+  const [eventCount, setEventCount] = useState(0);
+  const [ticketCount, setTicketCount] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/users/count")
+      .then((response) => {
+        setUserCount(response.data.count);
+      })
+      .catch((error) => {
+        console.error("Error fetching user count:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/events/count")
+      .then((response) => {
+        setEventCount(response.data.count);
+      })
+      .catch((error) => {
+        console.error("Error fetching event count:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/reservations/count")
+      .then((response) => {
+        setTicketCount(response.data.count);
+      })
+      .catch((error) => {
+        console.error("Error fetching event count:", error);
+      });
+  }, []);
+
   const ticketChart = {
     series: [
       {
@@ -19,7 +57,7 @@ const DashboardAdmin: React.FC = () => {
       type: "bar",
       height: 500,
     },
-    colors: ["#1ABC9C", "#3498DB", "#FFD700"],
+    colors: ["#1ABC9C", "#3498DB", "#ffc109"],
     plotOptions: {
       bar: {
         horizontal: false,
@@ -63,10 +101,8 @@ const DashboardAdmin: React.FC = () => {
     },
   };
 
-  const eventChart = {
-    series: [
-      { name: "Total", data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 12, 15, 55] },
-    ],
+  const [eventChart, setEventChart] = useState({
+    series: [{ name: "Total", data: [] }],
     chart: {
       type: "bar",
       height: 500,
@@ -108,12 +144,37 @@ const DashboardAdmin: React.FC = () => {
     fill: { opacity: 1 },
     tooltip: {
       y: {
-        formatter: function (val: number) {
+        formatter: function (val) {
           return val + " Events";
         },
       },
     },
-  };
+  });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/events/eventPerMonths")
+      .then((response) => {
+        const data = response.data;
+
+        const monthlyData = new Array(12).fill(0); // Array to hold event count per month (12 months)
+
+        // Populate the data array with the fetched data
+        data.forEach((event) => {
+          const month = parseInt(event.month, 10) - 1; // Adjust the month index (0-based)
+          monthlyData[month] = parseInt(event.total_events, 10);
+        });
+
+        // Update the chart state
+        setEventChart((prevChart) => ({
+          ...prevChart,
+          series: [{ name: "Total", data: monthlyData }],
+        }));
+      })
+      .catch((error) => {
+        console.error("Error fetching event data:", error);
+      });
+  }, []);
 
   const revenuData = [
     500.0, 750.0, 250.0, 900.0, 798.265, 950.32, 1000000, 600.0, 200000, 500.0,
@@ -165,13 +226,13 @@ const DashboardAdmin: React.FC = () => {
     <div>
       <div className="container">
         <div className="cards">
-          <h1>19 Users</h1>
+          <h1>{userCount} Users</h1>
         </div>
         <div className="cards">
-          <h1>20 events</h1>
+          <h1>{eventCount} events</h1>
         </div>
         <div className="cards">
-          <h1>100 tickets</h1>
+          <h1>{ticketCount} tickets</h1>
         </div>
       </div>
 

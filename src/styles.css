@@ -8,6 +8,8 @@
 
 .cards{
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f3f4f6;
+    color: #1e2939;
     width: 17vw;
     height: 15vh;
     display: flex;
@@ -17,9 +19,9 @@
 }
 
 .cards:hover{
-    background-color: lightgrey;
+    background-color: #ffc109;
     cursor: pointer;
-    color: white;
+    color: #f3f4f6;
 }
 
 .chart-container {
