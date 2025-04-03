@@ -1,0 +1,58 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+}
+
+.login-card {
+  min-width: 300px;
+  background: #f3f4f6;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-title {
+  margin-bottom: 16px;
+  color: #1e2939;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.inputs .MuiOutlinedInput-root{
+    color: #1e2939;
+}
+
+.inputs .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color:#ffc109 ;
+}
+
+.inputs .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #d38a00; 
+}
+
+.inputs .MuiInputLabel-root {
+  color: #1e2939;
+}
+
+.login-button {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  color: white;
+  background: #ffc109;
+}
+
+.login-button:hover {
+  background: #d38a00; 
+}

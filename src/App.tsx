@@ -10,7 +10,6 @@ import dataProvider from "./dataProvider";
 import {
   FaCalendar,
   FaUser,
-  FaTicketAlt,
   FaClipboardList,
 } from "react-icons/fa";
 import  DashboardAdmin  from "./dashboardAdmin.tsx";
@@ -27,6 +26,7 @@ export const App = () => (
     authProvider={authProvider}
     loginPage={LoginPage}
     requireAuth
+    defaultTheme="light"
   >
     <Resource
       name="events"
@@ -42,13 +42,6 @@ export const App = () => (
       edit={EditGuesser}
       show={ShowGuesser}
       icon={FaUser}
-    />
-    <Resource
-      name="tickets"
-      list={ListGuesser}
-      edit={EditGuesser}
-      show={ShowGuesser}
-      icon={FaTicketAlt}
     />
     <Resource
       name="reservations"

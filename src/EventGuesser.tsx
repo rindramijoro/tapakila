@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Show,
   SimpleShowLayout,
@@ -12,21 +13,35 @@ import {
   SelectInput,
   Create,
   DateInput,
+  TimeInput,
+  NumberInput,
+  NumberField,
 } from "react-admin";
 
-export const EventShow = () => (
+import { format,parseISO } from "date-fns";
+
+export const EventShow: React.FC = () => (
   <Show>
     <SimpleShowLayout>
       <TextField source="id" />
       <TextField source="title" />
+      <TextField source="description" />
       <TextField source="location" />
-      <TextField source="event_date" />
-      <ReferenceField source="organizer_id" reference="users" label="Organizer">
-        <TextField source="name" />
+      <TextField source="date" />
+      <TextField source="time" />
+      <ReferenceField source="organizer_id" reference="users">
+        <TextField source="first_name" />
       </ReferenceField>
+      <NumberField source="standard_price" />
+      <NumberField source="standard_quantity" />
+      <NumberField source="vip_price" />
+      <NumberField source="early_bird_price" />
+      <NumberField source="early_bird_quantity" />
+      <NumberField source="vip_quantity" />
       <TextField source="image_url" />
       <TextField source="category" />
       <TextField source="type" />
+      <TextField source="created_at" />
     </SimpleShowLayout>
   </Show>
 );
@@ -35,14 +50,31 @@ export const EventEdit = () => (
   <Edit>
     <SimpleForm>
       <TextInput source="title" />
+      <TextInput source="description" />
       <TextInput source="location" />
-      <TextInput source="event_date" />
-      <ReferenceInput source="organizer_id" reference="users">
-        <SelectInput optionText="name" />
-      </ReferenceInput>
-      <TextInput source="image_url" />
-      <TextInput source="category" />
-      <TextInput source="type" />
+      <DateInput
+        source="date"
+        label="Event Date"
+        options={{ format: "YYYY-MM-DD" }}
+      />
+      <TimeInput
+        source="time"
+        label="Event Time"
+        options={{ format: "HH:mm:ss" }}
+      />
+      <NumberInput source="standard_price" />
+      <NumberInput source="standard_quantity" />
+      <NumberInput source="vip_price" />
+      <NumberInput source="early_bird_price" />
+      <NumberInput source="early_bird_quantity" />
+      <NumberInput source="vip_quantity" />
+      <TextInput
+        source="image_url"
+        label="Image URL"
+        fullWidth
+        placeholder="https://example.com/image.jpg"
+      />
+      <TextField source="type" />
     </SimpleForm>
   </Edit>
 );
@@ -52,11 +84,23 @@ export const EventList = () => (
     <Datagrid rowClick="show">
       <TextField source="id" />
       <TextField source="title" />
+      <TextField source="description" />
       <TextField source="location" />
-      <TextField source="event_date" />
+      <TextField source="date" />
+      <TextField source="time" />
       <ReferenceField source="organizer_id" reference="users">
-        <TextField source="name" />
+        <TextField source="first_name" />
       </ReferenceField>
+      <NumberField source="standard_price" />
+      <NumberField source="standard_quantity" />
+      <NumberField source="vip_price" />
+      <NumberField source="early_bird_price" />
+      <NumberField source="early_bird_quantity" />
+      <NumberField source="vip_quantity" />
+      <TextField source="image_url" />
+      <TextField source="category" />
+      <TextField source="type" />
+      <TextField source="created_at" />
     </Datagrid>
   </List>
 );
@@ -64,28 +108,37 @@ export const EventCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="title" fullWidth />
+      <TextInput source="description" fullWidth />
       <TextInput source="location" fullWidth />
       <DateInput
-        source="event_date"
-        label="Event Date & Time"
-        options={{ format: "YYYY-MM-DD HH:mm" }}
+        source="date"
+        label="Event Date"
+        parse={(value) => format(new Date(value), "yyyy-MM-dd")}
       />
-      <ReferenceInput source="organizer_id" reference="users">
-        <SelectInput optionText="name" />
+      <TimeInput
+        source="time"
+        label="Event Time"
+        parse={(value) => value || ""} 
+      />
+      <ReferenceInput
+        source="organizer_id"
+        reference="users"
+        label="Organizer"
+        filter={{ first_name_not: null }}
+      >
+        <SelectInput optionText="first_name" />
       </ReferenceInput>
+      <NumberInput source="standard_price" />
+      <NumberInput source="standard_quantity" />
+      <NumberInput source="vip_price" />
+      <NumberInput source="early_bird_price" />
+      <NumberInput source="early_bird_quantity" />
+      <NumberInput source="vip_quantity" />
       <TextInput
         source="image_url"
         label="Image URL"
         fullWidth
         placeholder="https://example.com/image.jpg"
-      />
-      <SelectInput
-        source="category"
-        choices={[
-          { id: "Recent", name: "Recent" },
-          { id: "Upcoming", name: "Upcoming" },
-          { id: "Popular", name: "Popular" },
-        ]}
       />
       <TextInput source="type" fullWidth />
     </SimpleForm>
