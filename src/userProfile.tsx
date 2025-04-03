@@ -10,16 +10,30 @@ const UserProfile: React.FC = () => {
       </div>
       <div className="body">
         <div className="personalInfo">
-          <h2>Info Personnels</h2>
-          <h4>Prénoms: Thomas</h4>
-          <h4>Nom: RAZANAMALALA</h4>
-          <h4>E-mail: thomas.raza@yahoo.com</h4>
+          <h1>RAZANAMALALA Thomas</h1>
+          <p>thomas.raza@yahoo.com</p>
         </div>
         <div className="activities">
-          <h2>Activités</h2>
-          <h4>Tickets achetés: 2</h4>
-          <h4>Event assisté: 1</h4>
-          <h4>Event organisé: 0</h4>
+          <div className="events">
+            <h1>Mes Activités</h1>
+            <h2>Les events auxquelles vous avez assisté</h2>
+            <div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+                harum eveniet optio maiores! Alias unde nam voluptates eligendi
+                accusamus eaque voluptatum. Excepturi repellat voluptates
+                provident beatae deleniti laboriosam quibusdam tempora.
+              </p>
+            </div>
+          </div>
+          <div className="tickets">
+            <h2>Les tickets que vous avez acheté</h2>
+            <ul>
+                <p>Standard: 2</p>
+                <p>Early Bird: 0</p>
+                <p>VIP: 5</p>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -17,15 +17,23 @@ import  DashboardAdmin  from "./dashboardAdmin.tsx";
 import UserProfile from "./userProfile";
 import { Route } from "react-router-dom";
 import { MyLayout } from "./Layout";
-
+import { EventList, EventShow, EventEdit } from "./EventGuesser.tsx";
+import authProvider from "./authProvider.ts";
+import { LoginPage } from "./Login.tsx";
 
 export const App = () => (
-  <Admin dataProvider={dataProvider} layout={MyLayout}>
+  <Admin
+    dataProvider={dataProvider}
+    layout={MyLayout}
+    authProvider={authProvider}
+    loginPage={LoginPage}
+    requireAuth
+  >
     <Resource
       name="events"
-      list={ListGuesser}
-      edit={EditGuesser}
-      show={ShowGuesser}
+      list={EventList}
+      edit={EventEdit}
+      show={EventShow}
       icon={FaCalendar}
     />
     <Resource
@@ -53,7 +61,7 @@ export const App = () => (
       <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
     </CustomRoutes>
     <CustomRoutes>
-      <Route path="/userProfile" element = {<UserProfile/>}/>
+      <Route path="/userProfile" element={<UserProfile />} />
     </CustomRoutes>
   </Admin>
 );
