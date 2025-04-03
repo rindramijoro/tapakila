@@ -14,10 +14,9 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 import  DashboardAdmin  from "./dashboardAdmin.tsx";
-import UserProfile from "./userProfile";
 import { Route } from "react-router-dom";
 import { MyLayout } from "./Layout";
-import { EventList, EventShow, EventEdit } from "./EventGuesser.tsx";
+import { EventList, EventShow, EventEdit ,EventCreate} from "./EventGuesser.tsx";
 import authProvider from "./authProvider.ts";
 import { LoginPage } from "./Login.tsx";
 
@@ -34,6 +33,7 @@ export const App = () => (
       list={EventList}
       edit={EventEdit}
       show={EventShow}
+      create={EventCreate}
       icon={FaCalendar}
     />
     <Resource
@@ -59,9 +59,6 @@ export const App = () => (
     />
     <CustomRoutes>
       <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
-    </CustomRoutes>
-    <CustomRoutes>
-      <Route path="/userProfile" element={<UserProfile />} />
     </CustomRoutes>
   </Admin>
 );

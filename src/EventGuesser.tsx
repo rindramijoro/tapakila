@@ -10,6 +10,8 @@ import {
   TextInput,
   ReferenceInput,
   SelectInput,
+  Create,
+  DateInput,
 } from "react-admin";
 
 export const EventShow = () => (
@@ -57,4 +59,35 @@ export const EventList = () => (
       </ReferenceField>
     </Datagrid>
   </List>
+);
+export const EventCreate = (props) => (
+  <Create {...props}>
+    <SimpleForm>
+      <TextInput source="title" fullWidth />
+      <TextInput source="location" fullWidth />
+      <DateInput
+        source="event_date"
+        label="Event Date & Time"
+        options={{ format: "YYYY-MM-DD HH:mm" }}
+      />
+      <ReferenceInput source="organizer_id" reference="users">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <TextInput
+        source="image_url"
+        label="Image URL"
+        fullWidth
+        placeholder="https://example.com/image.jpg"
+      />
+      <SelectInput
+        source="category"
+        choices={[
+          { id: "Recent", name: "Recent" },
+          { id: "Upcoming", name: "Upcoming" },
+          { id: "Popular", name: "Popular" },
+        ]}
+      />
+      <TextInput source="type" fullWidth />
+    </SimpleForm>
+  </Create>
 );
