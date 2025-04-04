@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./styles.css";
+import "./Styles/styles.css";
 import ReactApexChart from "react-apexcharts";
 import axios from "axios";
 
@@ -45,17 +45,17 @@ const DashboardAdmin: React.FC = () => {
     series: [
       {
         name: "Standard",
-        data: [44, 55, 57, 56, 0, 61, 58, 63, 60, 66, 1, 157],
+        data: [0, 5, 0, 3, 0, 0, 4, 8, 0, 2, 1, 5],
       },
       {
         name: "Early Bird",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94, 99, 69, 201],
+        data: [0, 2, 0, 5, 0, 0, 0, 5, 4, 1, 2, 1],
       },
-      { name: "VIP", data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 12, 15, 55] },
+      { name: "VIP", data: [0, 2, 0, 6, 0, 0, 2, 2, 2, 1, 2, 5] },
     ],
     chart: {
       type: "bar",
-      height: 500,
+      height: 20,
     },
     colors: ["#1ABC9C", "#3498DB", "#ffc109"],
     plotOptions: {
@@ -157,15 +157,13 @@ const DashboardAdmin: React.FC = () => {
       .then((response) => {
         const data = response.data;
 
-        const monthlyData = new Array(12).fill(0); // Array to hold event count per month (12 months)
+        const monthlyData = new Array(12).fill(0); 
 
-        // Populate the data array with the fetched data
         data.forEach((event) => {
-          const month = parseInt(event.month, 10) - 1; // Adjust the month index (0-based)
+          const month = parseInt(event.month, 10) - 1; 
           monthlyData[month] = parseInt(event.total_events, 10);
         });
 
-        // Update the chart state
         setEventChart((prevChart) => ({
           ...prevChart,
           series: [{ name: "Total", data: monthlyData }],
@@ -175,52 +173,6 @@ const DashboardAdmin: React.FC = () => {
         console.error("Error fetching event data:", error);
       });
   }, []);
-
-  const revenuData = [
-    500.0, 750.0, 250.0, 900.0, 798.265, 950.32, 1000000, 600.0, 200000, 500.0,
-    850.0, 1500000,
-  ];
-
-  const totalIncome = revenuData.reduce((acc, value) => acc + value, 0);
-
-  const revenuChart = {
-    series: [
-      {
-        name: "Revenus (Ar)",
-        data: revenuData,
-      },
-    ],
-    chart: {
-      height: 350,
-      type: "line",
-      zoom: { enabled: false },
-    },
-    colors: ["#00E396"],
-    stroke: { curve: "straight" },
-    title: { text: "Revenus par mois", align: "left" },
-    grid: {
-      row: {
-        colors: ["#f3f3f3", "transparent"],
-        opacity: 0.5,
-      },
-    },
-    xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-    },
-  };
 
   return (
     <div>
@@ -254,18 +206,6 @@ const DashboardAdmin: React.FC = () => {
           type="bar"
           height={500}
         />
-      </div>
-
-      <div className="chart-container">
-        <ReactApexChart
-          options={revenuChart}
-          series={revenuChart.series}
-          type="line"
-          height={350}
-        />
-        <div>
-          <h2>Total income: {totalIncome.toLocaleString("fr-FR")} Ar </h2>
-        </div>
       </div>
     </div>
   );

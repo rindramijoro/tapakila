@@ -17,8 +17,9 @@ import {
   NumberInput,
   NumberField,
 } from "react-admin";
+import "../Styles/guessers.css";
 
-import { format,parseISO } from "date-fns";
+import { format } from "date-fns";
 
 export const EventShow: React.FC = () => (
   <Show>
@@ -52,16 +53,6 @@ export const EventEdit = () => (
       <TextInput source="title" />
       <TextInput source="description" />
       <TextInput source="location" />
-      <DateInput
-        source="date"
-        label="Event Date"
-        options={{ format: "YYYY-MM-DD" }}
-      />
-      <TimeInput
-        source="time"
-        label="Event Time"
-        options={{ format: "HH:mm:ss" }}
-      />
       <NumberInput source="standard_price" />
       <NumberInput source="standard_quantity" />
       <NumberInput source="vip_price" />
@@ -80,27 +71,27 @@ export const EventEdit = () => (
 );
 
 export const EventList = () => (
-  <List>
-    <Datagrid rowClick="show">
-      <TextField source="id" />
-      <TextField source="title" />
-      <TextField source="description" />
-      <TextField source="location" />
-      <TextField source="date" />
-      <TextField source="time" />
-      <ReferenceField source="organizer_id" reference="users">
+  <List exporter={false}>
+    <Datagrid rowClick="show" bulkActionButtons={false} className="dataGrid">
+      <TextField source="id" sortable={false} />
+      <TextField source="title" sortable={false} />
+      <TextField source="description" sortable={false} />
+      <TextField source="location" sortable={false} />
+      <TextField source="date" sortable={false} />
+      <TextField source="time" sortable={false} />
+      <ReferenceField source="organizer_id" reference="users" sortable={false}>
         <TextField source="first_name" />
       </ReferenceField>
-      <NumberField source="standard_price" />
-      <NumberField source="standard_quantity" />
-      <NumberField source="vip_price" />
-      <NumberField source="early_bird_price" />
-      <NumberField source="early_bird_quantity" />
-      <NumberField source="vip_quantity" />
-      <TextField source="image_url" />
-      <TextField source="category" />
-      <TextField source="type" />
-      <TextField source="created_at" />
+      <NumberField source="standard_price" sortable={false} />
+      <NumberField source="standard_quantity" sortable={false} />
+      <NumberField source="vip_price" sortable={false} />
+      <NumberField source="early_bird_price" sortable={false} />
+      <NumberField source="early_bird_quantity" sortable={false} />
+      <NumberField source="vip_quantity" sortable={false} />
+      <TextField source="image_url" sortable={false} />
+      <TextField source="category" sortable={false} />
+      <TextField source="type" sortable={false} />
+      <TextField source="created_at" sortable={false} />
     </Datagrid>
   </List>
 );

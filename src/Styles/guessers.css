@@ -1,0 +1,24 @@
+.dataGrid{
+    background-color: #f3f4f6;
+}
+
+.dataGrid th{
+    color: #1e2939;
+    font-weight: bolder;
+    font-size: medium;
+    background-color: #f3f4f6;
+    cursor: pointer;
+}
+
+.dataGrid th:hover{
+    color: #ffc109;
+}
+
+.dataGrid td{
+    color: #1e2939;
+    font-weight: bold;
+}
+
+.dataGrid .ra-reference-field .reference-value {
+  text-decoration: none;
+}

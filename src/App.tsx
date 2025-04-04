@@ -1,12 +1,11 @@
 import {
   Admin,
   EditGuesser,
-  ListGuesser,
   Resource,
   ShowGuesser,
   CustomRoutes,
 } from "react-admin";
-import dataProvider from "./dataProvider";
+import dataProvider from "./Provider/dataProvider.ts";
 import {
   FaCalendar,
   FaUser,
@@ -15,9 +14,11 @@ import {
 import  DashboardAdmin  from "./dashboardAdmin.tsx";
 import { Route } from "react-router-dom";
 import { MyLayout } from "./Layout";
-import { EventList, EventShow, EventEdit ,EventCreate} from "./EventGuesser.tsx";
-import authProvider from "./authProvider.ts";
+import { EventList, EventShow, EventEdit ,EventCreate} from "./Guessers/EventGuesser.tsx";
+import authProvider from "./Provider/authProvider.ts";
 import { LoginPage } from "./Login.tsx";
+import { UserListGuesser } from "./Guessers/UserListGuesser.tsx";
+import { ReservationsListGuesser } from "./Guessers/ReservationsListGuesser.tsx";
 
 export const App = () => (
   <Admin
@@ -26,7 +27,7 @@ export const App = () => (
     authProvider={authProvider}
     loginPage={LoginPage}
     requireAuth
-    defaultTheme="light"
+    darkTheme={null}
   >
     <Resource
       name="events"
@@ -38,14 +39,14 @@ export const App = () => (
     />
     <Resource
       name="users"
-      list={ListGuesser}
+      list={UserListGuesser}
       edit={EditGuesser}
       show={ShowGuesser}
       icon={FaUser}
     />
     <Resource
       name="reservations"
-      list={ListGuesser}
+      list={ReservationsListGuesser}
       edit={EditGuesser}
       show={ShowGuesser}
       icon={FaClipboardList}

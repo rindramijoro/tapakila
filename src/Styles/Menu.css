@@ -1,0 +1,15 @@
+.sideNavBar{
+    background-color: #f3f4f6 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    padding-top: 5vh !important;
+}
+
+.sideNavBar .MuiMenuItem-root {
+  color: #1e2939 !important; 
+  font-weight: bold;
+}
+
+.sideNavBar .RaMenuItemLink-active {
+  color: #ffc109 !important;
+}
