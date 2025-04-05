@@ -1,6 +1,6 @@
 import { fetchUtils, DataProvider } from "react-admin";
 
-const apiUrl = "http://localhost:8081";
+const apiUrl = "http://localhost:8081/admin";
 const httpClient = fetchUtils.fetchJson;
 
 const dataProvider: DataProvider = {

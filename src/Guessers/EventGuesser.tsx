@@ -39,7 +39,6 @@ export const EventShow: React.FC = () => (
       <NumberField source="early_bird_price" />
       <NumberField source="early_bird_quantity" />
       <NumberField source="vip_quantity" />
-      <TextField source="image_url" />
       <TextField source="category" />
       <TextField source="type" />
       <TextField source="created_at" />
@@ -79,19 +78,12 @@ export const EventList = () => (
       <TextField source="location" sortable={false} />
       <TextField source="date" sortable={false} />
       <TextField source="time" sortable={false} />
-      <ReferenceField source="organizer_id" reference="users" sortable={false}>
-        <TextField source="first_name" />
-      </ReferenceField>
       <NumberField source="standard_price" sortable={false} />
       <NumberField source="standard_quantity" sortable={false} />
       <NumberField source="vip_price" sortable={false} />
       <NumberField source="early_bird_price" sortable={false} />
       <NumberField source="early_bird_quantity" sortable={false} />
       <NumberField source="vip_quantity" sortable={false} />
-      <TextField source="image_url" sortable={false} />
-      <TextField source="category" sortable={false} />
-      <TextField source="type" sortable={false} />
-      <TextField source="created_at" sortable={false} />
     </Datagrid>
   </List>
 );

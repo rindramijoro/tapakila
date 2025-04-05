@@ -10,7 +10,7 @@ const DashboardAdmin: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/users/count")
+      .get("http://localhost:8081/admin/users/count")
       .then((response) => {
         setUserCount(response.data.count);
       })
@@ -21,7 +21,7 @@ const DashboardAdmin: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/events/count")
+      .get("http://localhost:8081/admin/events/count")
       .then((response) => {
         setEventCount(response.data.count);
       })
@@ -32,7 +32,7 @@ const DashboardAdmin: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/reservations/count")
+      .get("http://localhost:8081/admin/reservations/count")
       .then((response) => {
         setTicketCount(response.data.count);
       })
@@ -153,7 +153,7 @@ const DashboardAdmin: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/events/eventPerMonths")
+      .get("http://localhost:8081/admin/events/eventPerMonths")
       .then((response) => {
         const data = response.data;
 
